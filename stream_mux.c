@@ -42,6 +42,7 @@ void mux_input(mux_context_t *ctx, uint8_t channel, const uint8_t *payload, size
 
     if (force_send_channel_change_msg) {
         mux_change_channel(ctx, ctx->current_output_channel);
+        mux_flush_output(ctx);
     }
 
     if (!payload_len) return;
