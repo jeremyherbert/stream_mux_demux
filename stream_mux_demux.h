@@ -61,7 +61,7 @@ void demux_init(demux_context_t *ctx, uint8_t *working_buffer, size_t working_bu
 void demux_input(demux_context_t *ctx, const uint8_t *payload, size_t payload_len);
 
 #ifdef __cplusplus
-};
+}
 #endif
 
 #endif //STREAM_MUX_DEMUX_STREAM_MUX_DEMUX_H
