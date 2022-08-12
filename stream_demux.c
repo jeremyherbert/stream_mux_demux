@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 #include <stdbool.h>
 #include <stdint.h>
 #include "stream_mux_demux.h"

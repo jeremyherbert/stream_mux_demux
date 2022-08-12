@@ -1,6 +1,4 @@
-//
-// Created by Jeremy Herbert on 14/9/19.
-//
+/* SPDX-License-Identifier: MIT */
 
 #ifndef STREAM_MUX_DEMUX_STREAM_MUX_DEMUX_H
 #define STREAM_MUX_DEMUX_STREAM_MUX_DEMUX_H

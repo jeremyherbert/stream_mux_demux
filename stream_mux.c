@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 #include "stream_mux_demux.h"
 
 static inline void mux_flush_output(mux_context_t *ctx) {
