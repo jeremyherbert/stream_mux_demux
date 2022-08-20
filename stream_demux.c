@@ -5,23 +5,23 @@
 #include "stream_mux_demux.h"
 
 static inline void demux_flush_output(demux_context_t *ctx) {
-    if (ctx->working_buffer_size) {
-        ctx->output_callback(ctx->current_output_channel, ctx->working_buffer, ctx->working_buffer_size, ctx->callback_param);
-        ctx->working_buffer_size = 0;
+    if (ctx->working_buffer_current_size) {
+        ctx->output_callback(ctx->current_output_channel, ctx->working_buffer, ctx->working_buffer_current_size, ctx->callback_param);
+        ctx->working_buffer_current_size = 0;
     }
 }
 
 static inline void demux_push_to_outbuf(demux_context_t *ctx, uint8_t byte) {
-    ctx->working_buffer[ctx->working_buffer_size++] = byte;
+    ctx->working_buffer[ctx->working_buffer_current_size++] = byte;
 
-    if (ctx->working_buffer_size == ctx->working_buffer_max_size) {
+    if (ctx->working_buffer_current_size == ctx->working_buffer_max_size) {
         demux_flush_output(ctx);
     }
 }
 
 void demux_init(demux_context_t *ctx, uint8_t *working_buffer, size_t working_buffer_size, demux_output_callback_t output_callback, void *callback_param) {
     ctx->working_buffer = working_buffer;
-    ctx->working_buffer_size = 0;
+    ctx->working_buffer_current_size = 0;
     ctx->working_buffer_max_size = working_buffer_size;
     ctx->output_callback = output_callback;
     ctx->current_output_channel = 0;

@@ -3,16 +3,16 @@
 #include "stream_mux_demux.h"
 
 static inline void mux_flush_output(mux_context_t *ctx) {
-    if (ctx->working_buffer_size) {
-        ctx->output_callback(ctx->working_buffer, ctx->working_buffer_size, ctx->callback_param);
-        ctx->working_buffer_size = 0;
+    if (ctx->working_buffer_current_size) {
+        ctx->output_callback(ctx->working_buffer, ctx->working_buffer_current_size, ctx->callback_param);
+        ctx->working_buffer_current_size = 0;
     }
 }
 
 static inline void mux_push_to_outbuf(mux_context_t *ctx, uint8_t byte) {
-    ctx->working_buffer[ctx->working_buffer_size++] = byte;
+    ctx->working_buffer[ctx->working_buffer_current_size++] = byte;
 
-    if (ctx->working_buffer_size == ctx->working_buffer_max_size) {
+    if (ctx->working_buffer_current_size == ctx->working_buffer_max_size) {
         mux_flush_output(ctx);
     }
 }
@@ -32,7 +32,7 @@ static inline void mux_change_channel(mux_context_t *ctx, uint8_t new_channel) {
 
 void mux_init(mux_context_t *ctx, uint8_t *working_buffer, size_t working_buffer_size, mux_output_callback_t output_callback, void *callback_param) {
     ctx->working_buffer = working_buffer;
-    ctx->working_buffer_size = 0;
+    ctx->working_buffer_current_size = 0;
     ctx->working_buffer_max_size = working_buffer_size;
     ctx->output_callback = output_callback;
     ctx->current_output_channel = 0;
